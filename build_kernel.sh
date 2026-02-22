@@ -13,7 +13,9 @@ else
 fi
 
 echo " "
-echo "***Setting environment...***"
+echo "*** Setting environment...                 ***"
+echo "*** perhaps change prebuilts location path ***"
+echo " "
 
 export PATH=${PATH}:/media/iceows/Projets/iceows/leaos/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin
 export CROSS_COMPILE=aarch64-linux-android-
@@ -21,8 +23,9 @@ export CROSS_COMPILE=aarch64-linux-android-
 export GCC_COLORS=auto
 export ARCH=arm64
 
+echo "path is : $PATH"
 
-#echo "***Cleaning kernel...***"
+#echo "*** Cleaning kernel...                  ***"
 #make ARCH=arm64 distclean
 #rm -rf out
 
@@ -35,6 +38,7 @@ start_time=$(date +%Y.%m.%d-%I_%M)
 
 start_time_sum=$(date +%s)
 
+echo " "
 echo "Saisissez pour quel appareil vous voulez compiler："
 echo "1. OpenSource Huawei defconfig kirin710 EMUI10"
 echo "Votre choix :"
@@ -79,10 +83,10 @@ then
 	cp out/arch/arm64/boot/Image.gz Image.gz 
 	
 	# Pack Enforcing Kernel
-	tools/mkbootimg --kernel out/arch/arm64/boot/Image.gz --base 0x0 --cmdline "loglevel=4 initcall_debug=n page_tracker=on unmovable_isolate1=2:192M,3:224M,4:256M printktimer=0xfff0a000,0x534,0x538 androidboot.selinux=enforcing buildvariant=user" --tags_offset 0x07A00000 --kernel_offset 0x00080000 --ramdisk_offset 0x07c00000 --header_version 1 --os_version 9 --os_patch_level 2019-05-05 --output Kirin710_EMUI9.1-${end_time}.img
+	tools/mkbootimg --kernel out/arch/arm64/boot/Image.gz --base 0x0 --cmdline "loglevel=4 initcall_debug=n page_tracker=on unmovable_isolate1=2:192M,3:224M,4:256M printktimer=0xfff0a000,0x534,0x538 androidboot.selinux=enforcing buildvariant=user" --tags_offset 0x07A00000 --kernel_offset 0x00080000 --ramdisk_offset 0x07c00000 --header_version 1 --os_version 9 --os_patch_level 2019-05-05 --output Kirin710_EMUI70-${end_time}.img
 	
 	# Pack Permissive Kernel
-	tools/mkbootimg --kernel out/arch/arm64/boot/Image.gz --base 0x0 --cmdline "loglevel=4 initcall_debug=n page_tracker=on unmovable_isolate1=2:192M,3:224M,4:256M printktimer=0xfff0a000,0x534,0x538 androidboot.selinux=permissive buildvariant=user" --tags_offset 0x07A00000 --kernel_offset 0x00080000 --ramdisk_offset 0x07c00000 --header_version 1 --os_version 9 --os_patch_level 2019-05-05 --output Kirin710_EMUI9.1_PM-${end_time}.img
+	tools/mkbootimg --kernel out/arch/arm64/boot/Image.gz --base 0x0 --cmdline "loglevel=4 initcall_debug=n page_tracker=on unmovable_isolate1=2:192M,3:224M,4:256M printktimer=0xfff0a000,0x534,0x538 androidboot.selinux=permissive buildvariant=user" --tags_offset 0x07A00000 --kernel_offset 0x00080000 --ramdisk_offset 0x07c00000 --header_version 1 --os_version 9 --os_patch_level 2019-05-05 --output Kirin710_EMUI10_PM-${end_time}.img
 
 	echo "***Sucessfully built kernel...***"
 	echo " "
